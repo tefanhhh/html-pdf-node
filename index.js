@@ -68,6 +68,12 @@ async function generatePdfs(files, options, callback) {
       const template = hb.compile(data, { strict: true });
       const result = template(data);
       const html = result;
+      
+      // set user agent
+      if (file.userAgent) {
+        await page.setUserAgent(file.userAgent)
+      }
+      
       // We set the page content as the generated html by handlebars
       await page.setContent(html, {
         waitUntil: 'networkidle0', // wait for page to load completely
